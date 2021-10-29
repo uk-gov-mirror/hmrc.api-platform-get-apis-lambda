@@ -1,7 +1,7 @@
 
 # api-platform-get-apis-lambda
 
-This is a placeholder README.md for a new repository
+Lambda function to get a list of APIs in AWS API Gateway and return the list as JSON.
 
 ### License
 
