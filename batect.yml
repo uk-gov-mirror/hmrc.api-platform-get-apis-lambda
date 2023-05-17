@@ -1,0 +1,26 @@
+forbid_telemetry: true
+
+containers:
+  lambda: &lambda
+    build_directory: .
+    build_target: release
+  test:
+    build_directory: .
+    build_target: dev
+    environment:
+      LAMBDA_TASK_ROOT: /tmp
+
+tasks:
+  lambda-local:
+    dependencies:
+      - lambda-local
+    description: Start the integration dependencies to run integration tests via your editor
+    run:
+      container: test
+      entrypoint: /bin/sh
+  test-unit:
+    description: Run the unit tests
+    run:
+      command: ./run_all_tests.sh
+      container: test
+      entrypoint: /bin/sh

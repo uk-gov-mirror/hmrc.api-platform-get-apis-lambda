@@ -14,7 +14,7 @@ COPY . /tmp
 RUN sbt assembly
 
 
-FROM public.ecr.aws/lambda/java:11
+FROM public.ecr.aws/lambda/java:11 as release
 
 # Copy uber-jar from the build stage
 COPY --from=dev /tmp/lambda.jar ${LAMBDA_TASK_ROOT}/lib/lambda.jar
