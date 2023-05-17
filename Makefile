@@ -3,6 +3,9 @@ TERRAFORM_VERSION = 1.2.8
 build:
 	docker build -t $(TAG) .
 
+test-locally:
+	./run_all_tests.sh
+
 test-unit:
 	./batect test-unit
 
