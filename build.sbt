@@ -30,7 +30,7 @@ lazy val lambda = (project in file("."))
     resolvers += Resolver.jcenterRepo
   )
   .settings(
-    assemblyOutputPath in assembly := file(s"./$appName.zip"),
+    assemblyOutputPath in assembly := file(s"./lambda.jar"),
     assemblyMergeStrategy in assembly := {
       case path if path.endsWith("io.netty.versions.properties") => MergeStrategy.discard
       case path if path.endsWith("BuildInfo$.class") => MergeStrategy.discard
