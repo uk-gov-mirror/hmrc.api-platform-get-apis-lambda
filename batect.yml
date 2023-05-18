@@ -5,12 +5,12 @@ containers:
     build_directory: .
     build_target: release
   test:
-    build_directory: /tmp
+    build_directory: ./
     build_target: dev
 
 tasks:
   test-unit:
     description: Run the unit tests
     run:
-      command: echo "testing"
       container: test
+      command: ./run_all_tests.sh

@@ -19,5 +19,6 @@ FROM public.ecr.aws/lambda/java:11 as release
 # Copy uber-jar from the build stage
 COPY --from=dev /tmp/lambda.jar ${LAMBDA_TASK_ROOT}/lib/lambda.jar
 
+
 # Set the CMD to your handler (could also be done as a parameter override outside of the Dockerfile)
 CMD [ "uk.gov.hmrc.apiplatform.getapis.GetApisHandler::handle" ]

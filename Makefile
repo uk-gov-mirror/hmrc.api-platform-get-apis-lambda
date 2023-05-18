@@ -1,5 +1,3 @@
-TERRAFORM_VERSION = 1.2.8
-
 build:
 	docker build -t $(TAG) .
 
@@ -8,21 +6,3 @@ test-locally:
 
 test-unit:
 	./batect test-unit
-
-terraform-fmt:
-	docker run -v ${PWD}:/src -w /src/terraform hashicorp/terraform:$(TERRAFORM_VERSION) fmt -recursive
-
-terraform-fmt-check:
-	docker run -v ${PWD}:/src -w /src/terraform hashicorp/terraform:$(TERRAFORM_VERSION) fmt -recursive -check
-
-terraform-validate:
-	@echo "Not implemented because we can't clone remote modules"
-# docker run --rm -v ${PWD}:/src -w /src/terraform hashicorp/terraform:$(TERRAFORM_VERSION) init -backend=false
-# docker run --rm -v ${PWD}:/src -w /src/terraform hashicorp/terraform:$(TERRAFORM_VERSION) validate
-
-terraform-security-check: clean
-	docker run --rm -u 0 -v ${PWD}:/src tfsec/tfsec:latest /src/terraform
-
-# Clean runs in a container to avoid file permission errors on Jenkins
-clean:
-	docker run --rm -v ${PWD}:/src -w /src/terraform --entrypoint "/bin/sh" hashicorp/terraform:$(TERRAFORM_VERSION) -c "rm -rf /src/terraform/.terraform*"
