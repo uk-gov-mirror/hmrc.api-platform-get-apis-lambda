@@ -1,8 +1,8 @@
-FROM amazonlinux as dev
+FROM amazonlinux:2 as dev
 
 WORKDIR /tmp
 
-RUN yum install -y java-devel maven
+RUN yum install -y java-1.8.0-openjdk-devel maven
 RUN curl -L https://www.scala-sbt.org/sbt-rpm.repo > /etc/yum.repos.d/sbt-rpm.repo
 RUN yum install -y sbt-1.3.13
 RUN sbt update
