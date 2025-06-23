@@ -3,7 +3,7 @@ lazy val appDependencies: Seq[ModuleID] = compileDependencies ++ testDependencie
 
 lazy val compileDependencies = Seq(
   "uk.gov.hmrc" %% "aws-gateway-proxied-request-lambda" % "0.14.0",
-  "uk.gov.hmrc" %% "api-platform-manage-api" % "0.49.0-SNAPSHOT"
+  "uk.gov.hmrc" %% "api-platform-manage-api" % "0.49.0"
 )
 
 lazy val testDependencies = Seq(
@@ -21,8 +21,6 @@ lazy val lambda = (project in file("."))
     libraryDependencies ++= appDependencies,
     Test / parallelExecution := false,
     Test / fork := false,
-
-    retrieveManaged := true
   )
   .settings(
     resolvers += "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactory/hmrc-releases/",
