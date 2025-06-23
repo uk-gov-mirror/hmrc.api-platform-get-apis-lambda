@@ -3,7 +3,7 @@ lazy val appDependencies: Seq[ModuleID] = compileDependencies ++ testDependencie
 
 lazy val compileDependencies = Seq(
   "uk.gov.hmrc" %% "aws-gateway-proxied-request-lambda" % "0.14.0",
-  "uk.gov.hmrc" %% "api-platform-manage-api" % "0.48.0"
+  "uk.gov.hmrc" %% "api-platform-manage-api" % "0.49.0-SNAPSHOT"
 )
 
 lazy val testDependencies = Seq(
@@ -17,10 +17,11 @@ lazy val lambda = (project in file("."))
   .enablePlugins(plugins: _*)
   .settings(
     name := appName,
-    scalaVersion := "2.13.12",
+    scalaVersion := "2.13.16",
     libraryDependencies ++= appDependencies,
     Test / parallelExecution := false,
     Test / fork := false,
+
     retrieveManaged := true
   )
   .settings(
@@ -28,12 +29,15 @@ lazy val lambda = (project in file("."))
     resolvers += Resolver.jcenterRepo
   )
   .settings(
-    assemblyOutputPath in assembly := file(s"./$appName.zip"),
-    assemblyMergeStrategy in assembly := {
+    assembly / assemblyOutputPath := file(s"./$appName.zip"),
+    assembly / assemblyMergeStrategy := {
+      case PathList("module-info.class") => MergeStrategy.first
+      case PathList("META-INF", "versions", "9", "module-info.class") => MergeStrategy.last
+      case PathList("META-INF", xs @ _*) => MergeStrategy.first
       case path if path.endsWith("io.netty.versions.properties") => MergeStrategy.discard
       case path if path.endsWith("BuildInfo$.class") => MergeStrategy.discard
       case path =>
-        val oldStrategy = (assemblyMergeStrategy in assembly).value
+        val oldStrategy = (assembly / assemblyMergeStrategy).value
         oldStrategy(path)
     }
   )
