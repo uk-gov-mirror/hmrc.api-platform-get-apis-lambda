@@ -2,16 +2,14 @@ lazy val appName = "api-platform-get-apis-lambda"
 lazy val appDependencies: Seq[ModuleID] = compileDependencies ++ testDependencies
 
 lazy val compileDependencies = Seq(
-  "uk.gov.hmrc" %% "aws-gateway-proxied-request-lambda" % "0.12.0",
-  "uk.gov.hmrc" %% "api-platform-manage-api" % "0.44.0"
+  "uk.gov.hmrc" %% "aws-gateway-proxied-request-lambda" % "0.14.0",
+  "uk.gov.hmrc" %% "api-platform-manage-api" % "0.48.0"
 )
-
-lazy val testScope: String = "test"
 
 lazy val testDependencies = Seq(
-  "org.scalatest" %% "scalatest" % "3.0.5" % testScope,
-  "org.mockito" % "mockito-core" % "2.25.1" % testScope
-)
+  "org.scalatest" %% "scalatest"                % "3.2.18",
+  "org.mockito"   %% "mockito-scala-scalatest"  % "1.17.29"
+).map(_ % Test)
 
 lazy val plugins: Seq[Plugins] = Seq()
 
@@ -19,10 +17,10 @@ lazy val lambda = (project in file("."))
   .enablePlugins(plugins: _*)
   .settings(
     name := appName,
-    scalaVersion := "2.12.10",
+    scalaVersion := "2.13.12",
     libraryDependencies ++= appDependencies,
-    parallelExecution in Test := false,
-    fork in Test := false,
+    Test / parallelExecution := false,
+    Test / fork := false,
     retrieveManaged := true
   )
   .settings(
@@ -41,6 +39,6 @@ lazy val lambda = (project in file("."))
   )
 
 // Coverage configuration
-coverageMinimum := 85
+coverageMinimumStmtTotal := 85
 coverageFailOnMinimum := true
 coverageExcludedPackages := "<empty>"

@@ -26,7 +26,7 @@ class GetApisHandler(apiGatewayClient: ApiGatewayClient, limit: Int = 500) exten
   @tailrec
   private def getApis(apis: Seq[Api], position: Option[String]): Seq[Api] = {
     val response: GetRestApisResponse = apiGatewayClient.getRestApis(buildRequest(position))
-    val moreApis: Seq[Api] = response.items().asScala.map(item => Api(item.id(), item.name()))
+    val moreApis: Seq[Api] = response.items().asScala.map(item => Api(item.id(), item.name())).toSeq
     if (response.position == null) {
       apis ++ moreApis
     } else {

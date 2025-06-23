@@ -4,14 +4,16 @@ import java.net.HttpURLConnection.HTTP_OK
 import java.util.UUID
 
 import com.amazonaws.services.lambda.runtime.events.{APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent}
+import org.mockito.scalatest.MockitoSugar
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest._
-import org.scalatest.mockito.MockitoSugar
 import software.amazon.awssdk.services.apigateway.ApiGatewayClient
 import software.amazon.awssdk.services.apigateway.model.{RestApi, _}
 
-class GetApisHandlerSpec extends WordSpecLike with Matchers with MockitoSugar {
+class GetApisHandlerSpec extends AnyWordSpec with Matchers with MockitoSugar {
 
   trait Setup {
     val mockAPIGatewayClient: ApiGatewayClient = mock[ApiGatewayClient]
