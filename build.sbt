@@ -42,5 +42,6 @@ lazy val lambda = (project in file("."))
 
 // Coverage configuration
 coverageMinimumStmtTotal := 85
+coverageMinimumBranchTotal := 85
 coverageFailOnMinimum := true
 coverageExcludedPackages := "<empty>"
