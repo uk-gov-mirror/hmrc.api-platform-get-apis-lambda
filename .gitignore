@@ -26,4 +26,4 @@ yarn-error.log
 .vscode/
 project/.bloop/
 project/metals.sbt
-
+api-platform-get-apis-lambda.zip
